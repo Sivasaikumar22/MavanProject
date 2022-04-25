@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: 'ubuntu-16.04'
+    runs-on: 'ubuntu-latest'
 
     steps:
     - uses: actions/checkout@v2
@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://mcr.microsoft.com/
-        username: ${{ secrets.AzureAppService_ContainerUsername_85109f66b6894af39e4d8ef4d2a4f87b }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_af15b556ba894545b90758d0ca3b673b }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_784d39989bc34b6aa7f971571b5c8483 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_39da7941135649978aaa531daa125636 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_85109f66b6894af39e4d8ef4d2a4f87b }}/appsvc/staticsite:${{ github.sha }}
+        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_784d39989bc34b6aa7f971571b5c8483 }}/appsvc/staticsite:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'demosiva'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_4845e27dfe5e46e4bf3b8bce6ea5ed3b }}
-        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_85109f66b6894af39e4d8ef4d2a4f87b }}/appsvc/staticsite:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_761a942a073742cc89bff2399c0e2f4e }}
+        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_784d39989bc34b6aa7f971571b5c8483 }}/appsvc/staticsite:${{ github.sha }}'
